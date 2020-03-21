@@ -93,7 +93,7 @@ import java.util.*;
  * @see java.util.Comparator
  * @since 1.2
  */
-public interface Comparable<T> {
+public interface Comparable<T> extends Equable<T> {
     /**
      * Compares this object with the specified object for order.  Returns a
      * negative integer, zero, or a positive integer as this object is less
@@ -135,4 +135,18 @@ public interface Comparable<T> {
      *         from being compared to this object.
      */
     public int compareTo(T o);
+
+    /**
+     * Compares this object with the specified object for equality.
+     * TBD
+     *
+     * @param   o the object to be compared.
+     * @return  {@code true} if this object is the same as the obj
+     *          argument; {@code false} otherwise.
+     *
+     * @throws NullPointerException if the specified object is null
+     */
+    public default boolean eq(T o) {
+        return compareTo(o) == 0;
+    }
 }
