@@ -25,6 +25,7 @@
 
 package com.sun.tools.jdi;
 
+import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -83,8 +84,9 @@ enum EventDestination {UNKNOWN_EVENT, INTERNAL_EVENT, CLIENT_EVENT};
  * their own EventSet.  This means that the EventImpls that are in the EventSet
  * that is on the queues are all for client requests.
  */
-public class EventSetImpl extends ArrayList<Event> implements EventSet {
+public class EventSetImpl extends AbstractSet<Event> implements EventSet {
     private static final long serialVersionUID = -4857338819787924570L;
+    private final ArrayList<Event> list = new ArrayList<>();
     private VirtualMachineImpl vm; // we implement Mirror
     private Packet pkt;
     private byte suspendPolicy;
@@ -639,7 +641,7 @@ public class EventSetImpl extends ArrayList<Event> implements EventSet {
     private void addEvent(EventImpl evt) {
         // Note that this class has a public add method that throws
         // an exception so that clients can't modify the EventSet
-        super.add(evt);
+        list.add(evt);
     }
 
     /*
@@ -709,7 +711,7 @@ public class EventSetImpl extends ArrayList<Event> implements EventSet {
         pkt = null; // No longer needed - free it up
 
         // Avoid hangs described in 6296125, 6293795
-        if (super.size() == 0) {
+        if (list.size() == 0) {
             // This set has no client events.  If we don't do
             // needed resumes, no one else is going to.
             if (suspendPolicy == JDWP.SuspendPolicy.ALL) {
@@ -882,7 +884,7 @@ public class EventSetImpl extends ArrayList<Event> implements EventSet {
 
         public Event next() {
             try {
-                Event nxt = get(cursor);
+                Event nxt = list.get(cursor);
                 ++cursor;
                 return nxt;
             } catch(IndexOutOfBoundsException e) {
@@ -923,5 +925,8 @@ public class EventSetImpl extends ArrayList<Event> implements EventSet {
     }
     public void clear() {
         throw new UnsupportedOperationException();
+    }
+    public int size() {
+        return list.size();
     }
 }

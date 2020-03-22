@@ -1721,5 +1721,6 @@ public interface Map<K, V> extends Equable<Map<?, ?>> {
                     return false;
             }
         }
+        return true;
     }
 }
