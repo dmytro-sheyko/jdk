@@ -478,29 +478,12 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
 
         if (!(o instanceof Map))
             return false;
-        Map<?,?> m = (Map<?,?>) o;
-        if (m.size() != size())
-            return false;
 
         try {
-            for (Entry<K, V> e : entrySet()) {
-                K key = e.getKey();
-                V value = e.getValue();
-                if (value == null) {
-                    if (!(m.get(key) == null && m.containsKey(key)))
-                        return false;
-                } else {
-                    if (!value.equals(m.get(key)))
-                        return false;
-                }
-            }
-        } catch (ClassCastException unused) {
-            return false;
-        } catch (NullPointerException unused) {
+            return equ((Map<?,?>) o);
+        } catch (ClassCastException | NullPointerException unused) {
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -571,16 +554,6 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
         result.keySet = null;
         result.values = null;
         return result;
-    }
-
-    /**
-     * Utility method for SimpleEntry and SimpleImmutableEntry.
-     * Test for equality, checking for nulls.
-     *
-     * NB: Do not replace with Object.equals until JDK-8015417 is resolved.
-     */
-    private static boolean eq(Object o1, Object o2) {
-        return o1 == null ? o2 == null : o1.equals(o2);
     }
 
     // Implementation Note: SimpleEntry and SimpleImmutableEntry
@@ -690,8 +663,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
         public boolean equals(Object o) {
             if (!(o instanceof Map.Entry))
                 return false;
-            Map.Entry<?,?> e = (Map.Entry<?,?>)o;
-            return eq(key, e.getKey()) && eq(value, e.getValue());
+            return equ((Map.Entry<?,?>)o);
         }
 
         /**
@@ -824,8 +796,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
         public boolean equals(Object o) {
             if (!(o instanceof Map.Entry))
                 return false;
-            Map.Entry<?,?> e = (Map.Entry<?,?>)o;
-            return eq(key, e.getKey()) && eq(value, e.getValue());
+            return equ((Map.Entry<?,?>)o);
         }
 
         /**

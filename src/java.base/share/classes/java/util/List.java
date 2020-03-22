@@ -137,7 +137,7 @@ import java.util.function.UnaryOperator;
  * @since 1.2
  */
 
-public interface List<E> extends Collection<E> {
+public interface List<E> extends Collection<E>, Equable<List<?>> {
     // Query Operations
 
     /**
@@ -1064,5 +1064,20 @@ public interface List<E> extends Collection<E> {
      */
     static <E> List<E> copyOf(Collection<? extends E> coll) {
         return ImmutableCollections.listCopy(coll);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    default boolean equ(List<?> that) {
+        ListIterator<E> e1 = listIterator();
+        ListIterator<?> e2 = that.listIterator();
+        while (e1.hasNext() && e2.hasNext()) {
+            E o1 = e1.next();
+            Object o2 = e2.next();
+            if (!(o1==null ? o2==null : o1.equals(o2)))
+                return false;
+        }
+        return !(e1.hasNext() || e2.hasNext());
     }
 }

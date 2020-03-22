@@ -80,7 +80,7 @@ public final class Objects {
      * @param b an object to be compared with {@code a} for equality
      * @return {@code true} if the arguments are equal to each other
      * and {@code false} otherwise
-     * @see Equable#equ(T)
+     * @see Equable#equ(Object)
      */
     public static <B, A extends Equable<B>> boolean equ(A a, B b) {
         return (a == b) || (a != null ? (b != null && a.equ(b)) : b == null);

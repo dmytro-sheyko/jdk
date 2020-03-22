@@ -137,16 +137,9 @@ public interface Comparable<T> extends Equable<T> {
     public int compareTo(T o);
 
     /**
-     * Compares this object with the specified object for equality.
-     * TBD
-     *
-     * @param   o the object to be compared.
-     * @return  {@code true} if this object is the same as the obj
-     *          argument; {@code false} otherwise.
-     *
-     * @throws NullPointerException if the specified object is null
+     * {@inheritDoc}
      */
-    public default boolean equ(T o) {
+    default boolean equ(T o) {
         return compareTo(o) == 0;
     }
 }

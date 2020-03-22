@@ -1022,10 +1022,17 @@ public final class String
             return true;
         }
         if (anObject instanceof String) {
-            String aString = (String)anObject;
-            if (!COMPACT_STRINGS || this.coder == aString.coder) {
-                return StringLatin1.equals(value, aString.value);
-            }
+            return equ((String)anObject);
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equ(String aString) {
+        if (!COMPACT_STRINGS || this.coder == aString.coder) {
+            return StringLatin1.equals(value, aString.value);
         }
         return false;
     }

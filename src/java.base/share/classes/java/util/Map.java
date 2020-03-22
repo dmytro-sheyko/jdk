@@ -156,7 +156,7 @@ import java.io.Serializable;
  * @see Set
  * @since 1.2
  */
-public interface Map<K, V> {
+public interface Map<K, V> extends Equable<Map<?, ?>> {
     // Query Operations
 
     /**
@@ -403,7 +403,7 @@ public interface Map<K, V> {
      * @see Map#entrySet()
      * @since 1.2
      */
-    interface Entry<K, V> {
+    interface Entry<K, V> extends Equable<Entry<?, ?>> {
         /**
          * Returns the key corresponding to this entry.
          *
@@ -467,6 +467,23 @@ public interface Map<K, V> {
          *         entry
          */
         boolean equals(Object o);
+
+        /**
+         * {@inheritDoc}
+         */
+        default boolean equ(Entry<?, ?> that) {
+            return eq(getKey(), that.getKey()) && eq(getValue(), that.getValue());
+        }
+
+        /**
+         * Utility method for Map.Entry.
+         * Test for equality, checking for nulls.
+         *
+         * NB: Do not replace with Object.equals until JDK-8015417 is resolved.
+         */
+        private static boolean eq(Object o1, Object o2) {
+            return o1 == null ? o2 == null : o1.equals(o2);
+        }
 
         /**
          * Returns the hash code value for this map entry.  The hash code
@@ -1684,6 +1701,25 @@ public interface Map<K, V> {
             return (Map<K,V>)map;
         } else {
             return (Map<K,V>)Map.ofEntries(map.entrySet().toArray(new Entry[0]));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    default boolean equ(Map<?, ?> that) {
+        if (that.size() != size())
+            return false;
+        for (Entry<K, V> e : entrySet()) {
+            K key = e.getKey();
+            V value = e.getValue();
+            if (value == null) {
+                if (!(that.get(key) == null && that.containsKey(key)))
+                    return false;
+            } else {
+                if (!value.equals(that.get(key)))
+                    return false;
+            }
         }
     }
 }

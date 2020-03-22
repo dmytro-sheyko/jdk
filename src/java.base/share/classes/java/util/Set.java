@@ -110,7 +110,7 @@ package java.util;
  * @since 1.2
  */
 
-public interface Set<E> extends Collection<E> {
+public interface Set<E> extends Collection<E>, Equable<Set<?>> {
     // Query Operations
 
     /**
@@ -729,5 +729,14 @@ public interface Set<E> extends Collection<E> {
         } else {
             return (Set<E>)Set.of(new HashSet<>(coll).toArray());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    default boolean equ(Set<?> that) {
+        if (that.size() != size())
+            return false;
+        return containsAll(that);
     }
 }
