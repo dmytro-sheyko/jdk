@@ -47,5 +47,5 @@ public interface Equable<T> {
      *
      * @throws NullPointerException if the specified object is null
      */
-    public boolean eq(T o);
+    public boolean equ(T o);
 }

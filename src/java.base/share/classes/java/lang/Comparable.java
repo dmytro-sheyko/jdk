@@ -146,7 +146,7 @@ public interface Comparable<T> extends Equable<T> {
      *
      * @throws NullPointerException if the specified object is null
      */
-    public default boolean eq(T o) {
+    public default boolean equ(T o) {
         return compareTo(o) == 0;
     }
 }

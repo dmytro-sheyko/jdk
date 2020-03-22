@@ -64,6 +64,28 @@ public final class Objects {
         return (a == b) || (a != null && a.equals(b));
     }
 
+    /**
+     * Returns {@code true} if the arguments are equal to each other
+     * and {@code false} otherwise.
+     * Consequently, if both arguments are {@code null}, {@code true}
+     * is returned.  Otherwise, if the first argument is not {@code
+     * null}, equality is determined by calling the {@link
+     * Equable#equ equ} method of the first argument with the
+     * second argument of this method. Otherwise, {@code false} is
+     * returned.
+     *
+     * @param <B> type of parameter {@code b}
+     * @param <A> type of parameter {@code a}
+     * @param a an object
+     * @param b an object to be compared with {@code a} for equality
+     * @return {@code true} if the arguments are equal to each other
+     * and {@code false} otherwise
+     * @see Equable#equ(T)
+     */
+    public static <B, A extends Equable<B>> boolean equ(A a, B b) {
+        return (a == b) || (a != null ? (b != null && a.equ(b)) : b == null);
+    }
+
    /**
     * Returns {@code true} if the arguments are deeply equal to each other
     * and {@code false} otherwise.
