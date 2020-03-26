@@ -1028,8 +1028,25 @@ public final class String
     }
 
     /**
-     * {@inheritDoc}
+     * Compares this string to the specified object.  The result is {@code
+     * true} if and only if the argument is a {@code String} object that represents
+     * the same sequence of characters as this object.
+     *
+     * <p>For finer-grained String comparison, refer to
+     * {@link java.text.Collator}.
+     *
+     * @param  aString
+     *         The object to compare this {@code String} against
+     *
+     * @return  {@code true} if the given object represents a {@code String}
+     *          equivalent to this string, {@code false} otherwise
+     *
+     * @throws  NullPointerException if the argument is {@code null}
+     *
+     * @see  #compareTo(String)
+     * @see  #equalsIgnoreCase(String)
      */
+    @Override
     public boolean equ(String aString) {
         if (!COMPACT_STRINGS || this.coder == aString.coder) {
             return StringLatin1.equals(value, aString.value);

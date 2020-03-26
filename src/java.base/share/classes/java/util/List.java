@@ -1069,6 +1069,7 @@ public interface List<E> extends Collection<E>, Equable<List<?>> {
     /**
      * {@inheritDoc}
      */
+    @Override
     default boolean equ(List<?> that) {
         ListIterator<E> e1 = listIterator();
         ListIterator<?> e2 = that.listIterator();

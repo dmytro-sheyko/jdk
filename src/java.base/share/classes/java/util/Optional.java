@@ -57,7 +57,7 @@ import java.util.stream.Stream;
  * @param <T> the type of value
  * @since 1.8
  */
-public final class Optional<T> {
+public final class Optional<T> implements Equable<Optional<?>> {
     /**
      * Common instance for {@code empty()}.
      */
@@ -420,13 +420,31 @@ public final class Optional<T> {
         if (this == obj) {
             return true;
         }
-
         if (!(obj instanceof Optional)) {
             return false;
         }
+        return equ((Optional<?>) obj);
+    }
 
-        Optional<?> other = (Optional<?>) obj;
-        return Objects.equals(value, other.value);
+    /**
+     * Indicates whether some other object is "equal to" this {@code Optional}.
+     * The other object is considered equal if:
+     * <ul>
+     * <li>both instances have no value present or;
+     * <li>the present values are "equal to" each other via {@code equals()}.
+     * </ul>
+     *
+     * @param obj an object to be tested for equality
+     * @return {@code true} if the other object is "equal to" this object
+     *         otherwise {@code false}
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(Optional<?> obj) {
+        if (this == obj) {
+            return true;
+        }
+        return Objects.equals(value, obj.value);
     }
 
     /**

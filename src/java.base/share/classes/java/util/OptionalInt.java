@@ -54,7 +54,7 @@ import java.util.stream.IntStream;
  *
  * @since 1.8
  */
-public final class OptionalInt {
+public final class OptionalInt implements Equable<OptionalInt> {
     /**
      * Common instance for {@code empty()}.
      */
@@ -290,12 +290,30 @@ public final class OptionalInt {
         if (this == obj) {
             return true;
         }
-
         if (!(obj instanceof OptionalInt)) {
             return false;
         }
+        return equ((OptionalInt) obj);
+    }
 
-        OptionalInt other = (OptionalInt) obj;
+    /**
+     * Indicates whether some other object is "equal to" this
+     * {@code OptionalInt}.  The other object is considered equal if:
+     * <ul>
+     * <li>both instances have no value present or;
+     * <li>the present values are "equal to" each other via {@code ==}.
+     * </ul>
+     *
+     * @param other an object to be tested for equality
+     * @return {@code true} if the other object is "equal to" this object
+     *         otherwise {@code false}
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(OptionalInt other) {
+        if (this == other) {
+            return true;
+        }
         return (isPresent && other.isPresent)
                 ? value == other.value
                 : isPresent == other.isPresent;

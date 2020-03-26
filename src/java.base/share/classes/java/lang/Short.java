@@ -473,9 +473,24 @@ public final class Short extends Number implements Comparable<Short>, Constable 
      */
     public boolean equals(Object obj) {
         if (obj instanceof Short) {
-            return value == ((Short)obj).shortValue();
+            return equ((Short)obj);
         }
         return false;
+    }
+
+    /**
+     * Compares this object to the specified object.  The result is
+     * {@code true} if and only if the argument is a {@code Short} object that
+     * contains the same {@code short} value as this object.
+     *
+     * @param obj       the object to compare with
+     * @return          {@code true} if the objects are the same;
+     *                  {@code false} otherwise.
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(Short obj) {
+        return value == obj.shortValue();
     }
 
     /**

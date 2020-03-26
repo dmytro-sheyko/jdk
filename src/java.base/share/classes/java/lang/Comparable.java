@@ -139,6 +139,7 @@ public interface Comparable<T> extends Equable<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     default boolean equ(T o) {
         return compareTo(o) == 0;
     }

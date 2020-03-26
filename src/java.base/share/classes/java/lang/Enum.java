@@ -35,6 +35,7 @@ import java.lang.constant.Constable;
 import java.lang.constant.ConstantDescs;
 import java.lang.constant.DynamicConstantDesc;
 import java.lang.invoke.MethodHandles;
+import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
@@ -161,6 +162,20 @@ public abstract class Enum<E extends Enum<E>>
      */
     public final boolean equals(Object other) {
         return this==other;
+    }
+
+    /**
+     * Returns true if the specified object is equal to this
+     * enum constant.
+     *
+     * @param other the object to be compared for equality with this object.
+     * @return  true if the specified object is equal to this
+     *          enum constant.
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public final boolean equ(E other) {
+        return this==Objects.requireNonNull(other);
     }
 
     /**

@@ -1453,9 +1453,24 @@ public final class Long extends Number
      */
     public boolean equals(Object obj) {
         if (obj instanceof Long) {
-            return value == ((Long)obj).longValue();
+            return equ((Long)obj);
         }
         return false;
+    }
+
+    /**
+     * Compares this object to the specified object.  The result is
+     * {@code true} if and only if the argument is a {@code Long} object that
+     * contains the same {@code long} value as this object.
+     *
+     * @param   obj   the object to compare with.
+     * @return  {@code true} if the objects are the same;
+     *          {@code false} otherwise.
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(Long obj) {
+        return value == obj.longValue();
     }
 
     /**

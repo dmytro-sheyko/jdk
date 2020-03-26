@@ -471,6 +471,7 @@ public interface Map<K, V> extends Equable<Map<?, ?>> {
         /**
          * {@inheritDoc}
          */
+        @Override
         default boolean equ(Entry<?, ?> that) {
             return eq(getKey(), that.getKey()) && eq(getValue(), that.getValue());
         }
@@ -1707,6 +1708,7 @@ public interface Map<K, V> extends Equable<Map<?, ?>> {
     /**
      * {@inheritDoc}
      */
+    @Override
     default boolean equ(Map<?, ?> that) {
         if (that.size() != size())
             return false;

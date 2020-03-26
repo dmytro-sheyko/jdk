@@ -8425,9 +8425,24 @@ class Character implements java.io.Serializable, Comparable<Character>, Constabl
      */
     public boolean equals(Object obj) {
         if (obj instanceof Character) {
-            return value == ((Character)obj).charValue();
+            return equ((Character)obj);
         }
         return false;
+    }
+
+    /**
+     * Compares this object against the specified object.
+     * The result is {@code true} if and only if the argument
+     * represents the same {@code char} value as this object.
+     *
+     * @param   obj   the object to compare with.
+     * @return  {@code true} if the objects are the same;
+     *          {@code false} otherwise.
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(Character obj) {
+        return value == obj.charValue();
     }
 
     /**

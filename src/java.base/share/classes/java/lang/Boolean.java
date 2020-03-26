@@ -248,9 +248,23 @@ public final class Boolean implements java.io.Serializable,
      */
     public boolean equals(Object obj) {
         if (obj instanceof Boolean) {
-            return value == ((Boolean)obj).booleanValue();
+            return equ((Boolean)obj);
         }
         return false;
+    }
+
+    /**
+     * Returns {@code true} if and only if the argument
+     * represents the same {@code boolean} value as this object.
+     *
+     * @param   obj   the object to compare with.
+     * @return  {@code true} if the Boolean objects represent the
+     *          same value; {@code false} otherwise.
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(Boolean obj) {
+        return value == obj.booleanValue();
     }
 
     /**

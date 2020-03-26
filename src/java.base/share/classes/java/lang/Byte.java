@@ -468,9 +468,24 @@ public final class Byte extends Number implements Comparable<Byte>, Constable {
      */
     public boolean equals(Object obj) {
         if (obj instanceof Byte) {
-            return value == ((Byte)obj).byteValue();
+            return equ((Byte)obj);
         }
         return false;
+    }
+
+    /**
+     * Compares this object to the specified object.  The result is
+     * {@code true} if and only if the argument
+     * contains the same {@code byte} value as this object.
+     *
+     * @param obj       the object to compare with
+     * @return          {@code true} if the objects are the same;
+     *                  {@code false} otherwise.
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(Byte obj) {
+        return value == obj.byteValue();
     }
 
     /**

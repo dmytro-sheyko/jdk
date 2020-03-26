@@ -54,7 +54,7 @@ import java.util.stream.DoubleStream;
  *
  * @since 1.8
  */
-public final class OptionalDouble {
+public final class OptionalDouble implements Equable<OptionalDouble> {
     /**
      * Common instance for {@code empty()}.
      */
@@ -292,14 +292,33 @@ public final class OptionalDouble {
         if (this == obj) {
             return true;
         }
-
         if (!(obj instanceof OptionalDouble)) {
             return false;
         }
+        return equ((OptionalDouble) obj);
+    }
 
-        OptionalDouble other = (OptionalDouble) obj;
+    /**
+     * Indicates whether some other object is "equal to" this
+     * {@code OptionalDouble}. The other object is considered equal if:
+     * <ul>
+     * <li>both instances have no value present or;
+     * <li>the present values are "equal to" each other via
+     * {@code Double.compare() == 0}.
+     * </ul>
+     *
+     * @param other an object to be tested for equality
+     * @return {@code true} if the other object is "equal to" this object
+     *         otherwise {@code false}
+     * @throws  NullPointerException if the argument is {@code null}
+     */
+    @Override
+    public boolean equ(OptionalDouble other) {
+        if (this == other) {
+            return true;
+        }
         return (isPresent && other.isPresent)
-               ? Double.compare(value, other.value) == 0
+               ? Double.equ(value, other.value)
                : isPresent == other.isPresent;
     }
 

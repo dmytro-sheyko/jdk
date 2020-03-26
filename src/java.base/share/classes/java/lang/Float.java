@@ -733,8 +733,72 @@ public final class Float extends Number
      * @see java.lang.Float#floatToIntBits(float)
      */
     public boolean equals(Object obj) {
-        return (obj instanceof Float)
-               && (floatToIntBits(((Float)obj).value) == floatToIntBits(value));
+        return (obj instanceof Float) && equ((Float)obj);
+    }
+
+    /**
+     * Compares this object against the specified object. The result
+     * is {@code true} if and only if the argument
+     * represents a {@code float} with the same value as the
+     * {@code float} represented by this object. For this
+     * purpose, two {@code float} values are considered to be the
+     * same if and only if the method {@link #floatToIntBits(float)}
+     * returns the identical {@code int} value when applied to
+     * each.
+     *
+     * <p>Note that in most cases, for two instances of class
+     * {@code Float}, {@code f1} and {@code f2}, the value
+     * of {@code f1.equ(f2)} is {@code true} if and only if
+     *
+     * <blockquote><pre>
+     *   f1.floatValue() == f2.floatValue()
+     * </pre></blockquote>
+     *
+     * <p>also has the value {@code true}. However, there are two exceptions:
+     * <ul>
+     * <li>If {@code f1} and {@code f2} both represent
+     *     {@code Float.NaN}, then the {@code equals} method returns
+     *     {@code true}, even though {@code Float.NaN==Float.NaN}
+     *     has the value {@code false}.
+     * <li>If {@code f1} represents {@code +0.0f} while
+     *     {@code f2} represents {@code -0.0f}, or vice
+     *     versa, the {@code equal} test has the value
+     *     {@code false}, even though {@code 0.0f==-0.0f}
+     *     has the value {@code true}.
+     * </ul>
+     *
+     * This definition allows hash tables to operate properly.
+     *
+     * @param obj the object to be compared
+     * @return  {@code true} if the objects are the same;
+     *          {@code false} otherwise.
+     * @throws  NullPointerException if the argument is {@code null}
+     * @see java.lang.Float#floatToIntBits(float)
+     */
+    @Override
+    public boolean equ(Float obj) {
+        return equ(obj.value, value);
+    }
+
+    /**
+     * Compares the two specified {@code float} values. The result
+     * is {@code true} if and only if the argument
+     * represents a {@code float} with the same value as the
+     * {@code float} represented by this object. For this
+     * purpose, two {@code float} values are considered to be the
+     * same if and only if the method {@link #floatToIntBits(float)}
+     * returns the identical {@code int} value when applied to
+     * each.
+     *
+     * @param   f1        the first {@code float} to compare.
+     * @param   f2        the second {@code float} to compare.
+     * @return  {@code true} if the values are the same;
+     *          {@code false} otherwise.
+     * @see java.lang.Float#floatToIntBits(float)
+     * @since 15
+     */
+    public static boolean equ(float f1, float f2) {
+        return floatToIntBits(f1) == floatToIntBits(f2);
     }
 
     /**
