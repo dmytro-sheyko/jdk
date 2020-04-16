@@ -138,6 +138,21 @@ public interface Comparable<T> extends Equable<T> {
 
     /**
      * {@inheritDoc}
+     *
+     * The {@link Comparable Comparable&lt;T&gt;} interface provides default
+     * implementation for {@link Equable#equ(Object) Equable&lt;T&gt;.equ(T)}
+     * through {@link Comparable#compareTo(Object) Comparable&lt;T&gt;.compareTo(T)}.
+     * Implementers are encouraged to override
+     * {@link Equable#equ(Object) Equable&lt;T&gt;.equ(T)} and provide
+     * more efficient implementation, if it exists.
+     *
+     * @param   o the object to be compared.
+     * @return  {@code true} if this object is equal to the obj
+     *          argument; {@code false} otherwise.
+     *
+     * @throws NullPointerException if the specified object is null
+     * @throws ClassCastException if the specified object's type prevents it
+     *         from being compared to this object.
      */
     @Override
     default boolean equ(T o) {
